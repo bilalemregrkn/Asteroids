@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -30,12 +28,11 @@ public class BulletController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag($"Asteroid"))
-		{
-			var asteroid = other.GetComponent<AsteroidController>();
-			asteroid.Split();
-			
-			Destroy(gameObject);
-		}
+		if (!other.CompareTag($"Asteroid")) return;
+		var asteroid = other.GetComponent<AsteroidController>();
+		asteroid.Split();
+
+		GameManager.Instance.Score++;
+		Destroy(gameObject);
 	}
 }

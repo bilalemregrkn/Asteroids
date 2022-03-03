@@ -15,9 +15,9 @@ TagManager:
   - 
   - Bullet
   - Border
-  - 
-  - 
-  - 
+  - Teleportable
+  - Player
+  - Asteroid
   - 
   - 
   - 
@@ -41,4 +41,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Text
+    uniqueID: 477589991
+    locked: 0
+  - name: Asteroid
+    uniqueID: 3299106459
+    locked: 0
+  - name: Player
+    uniqueID: 1300827827
+    locked: 0
+  - name: Bullet
+    uniqueID: 178135361
+    locked: 0
+  - name: Border
+    uniqueID: 2303006965
     locked: 0

@@ -3,13 +3,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public interface ITeleport
-{
-	public void OnTeleport();
-}
-
 [RequireComponent(typeof(Rigidbody2D))]
-public class AsteroidController : MonoBehaviour , ITeleport 
+public class AsteroidController : MonoBehaviour
 {
 	private Rigidbody2D _rigidbody;
 	private Collider2D _collider;
@@ -20,6 +15,13 @@ public class AsteroidController : MonoBehaviour , ITeleport
 	{
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_collider = GetComponent<Collider2D>();
+
+		ResetCollider();
+	}
+
+	private void ResetCollider()
+	{
+		_collider.enabled = false;
 
 		IEnumerator Do()
 		{
@@ -34,6 +36,7 @@ public class AsteroidController : MonoBehaviour , ITeleport
 	{
 		_speed = speed;
 		_rigidbody.AddForce(direction * speed);
+		_rigidbody.AddTorque(speed);
 	}
 
 	public void Split()
@@ -48,22 +51,10 @@ public class AsteroidController : MonoBehaviour , ITeleport
 				asteroidController.transform.localScale = transform.localScale / 2;
 
 				var direction = _rigidbody.velocity.normalized + new Vector2(Random.value, Random.value);
-				asteroidController.Move(direction, _speed*5);
+				asteroidController.Move(direction, _speed * 5);
 			}
 		}
 
 		Destroy(gameObject);
-	}
-
-	public void OnTeleport()
-	{
-		_collider.enabled = false;
-		IEnumerator Do()
-		{
-			yield return new WaitForSeconds(1);
-			_collider.enabled = true;
-		}
-
-		StartCoroutine(Do());
 	}
 }
